@@ -11,6 +11,11 @@
     <!-- Bootstrap + LeadMark main styles -->
     <link rel="stylesheet" href="assets/css/leadmark.css">
 
+    <script src="https://source.zoom.us/2.13.0/lib/vendor/react.min.js"></script>
+    <script src="https://source.zoom.us/2.13.0/lib/vendor/react-dom.min.js"></script>
+    <script src="https://source.zoom.us/2.13.0/lib/vendor/redux.min.js"></script>
+    <script src="https://source.zoom.us/2.13.0/lib/vendor/redux-thunk.min.js"></script>
+    <script src="https://source.zoom.us/2.13.0/zoom-meeting-embedded-2.13.0.min.js"></script>
 </head>
 <body data-spy="scroll" data-target=".navbar" data-offset="40" id="home">
 
@@ -68,7 +73,36 @@
         <h6 class="section-title text-center">Join Meeting</h6>
         <h6 class="section-subtitle text-center mb-5 pb-3">Live every Thursday at 7:00 pm CT</h6>
 
+        <button onclick="joinMeeting()">Join Meeting</button>
+        <div id="meetingSDKElement"></div>
 
+        <script>
+            async function joinMeeting() {
+                const meetingNumber = "123456789";
+                const role = 0;
+
+                try {
+                    const response = await fetch("http://localhost:8080/api/zoom/generate-signature", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ meetingNumber, role })
+                    });
+
+                    const data = await response.json();
+                    const { signature, apiKey } = data;
+
+                    client.join({
+                        apiKey: apiKey,
+                        signature: signature,
+                        meetingNumber: meetingNumber,
+                        userName: "Guest User",
+                        password: ""
+                    });
+                } catch (error) {
+                    console.error("Error:", error);
+                }
+            }
+        </script>
 
         <div class="row">
             <div class="col-md-4">

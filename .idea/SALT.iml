@@ -2,7 +2,9 @@
 <module type="JAVA_MODULE" version="4">
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
-    <content url="file://$MODULE_DIR$" />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$" isTestSource="false" />
+    </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="react" level="application" />
@@ -17,5 +19,6 @@
     <orderEntry type="library" name="zoom-meeting-2.16.0" level="application" />
     <orderEntry type="library" name="zoom-meeting-embedded-2.9.5" level="application" />
     <orderEntry type="library" name="crypto-js" level="application" />
+    <orderEntry type="library" name="zoom-meeting-embedded-2.13.0" level="application" />
   </component>
 </module>

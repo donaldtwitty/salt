@@ -22,13 +22,15 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
 
     // JSON Web Token (JJWT) for Zoom Signature
-    implementation 'io.jsonwebtoken:jjwt:0.11.2'
+    implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
+    implementation 'io.jsonwebtoken:jjwt-impl:0.11.5'
+    implementation 'io.jsonwebtoken:jjwt-jackson:0.11.5' // for JSON processing
 
-    // Lombok (optional, for reducing boilerplate code)
+    // Lombok (optional for reducing boilerplate code)
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
 
-    // Spring Boot DevTools (optional, for live reload)
+    // Spring Boot DevTools (optional for live reload)
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
     // Spring Boot Test (for testing)

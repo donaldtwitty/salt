@@ -10,15 +10,17 @@
     <link rel="stylesheet" href="assets/vendors/themify-icons/css/themify-icons.css">
     <!-- Bootstrap + LeadMark main styles -->
     <link rel="stylesheet" href="assets/css/leadmark.css">
-
+    <!-- Favicon -->
+    <link rel="icon" href="assets/images/logo01.png" type="image/x-icon">
+    <!-- Zoom Meeting -->
     <script src="https://source.zoom.us/2.13.0/lib/vendor/react.min.js"></script>
     <script src="https://source.zoom.us/2.13.0/lib/vendor/react-dom.min.js"></script>
     <script src="https://source.zoom.us/2.13.0/lib/vendor/redux.min.js"></script>
     <script src="https://source.zoom.us/2.13.0/lib/vendor/redux-thunk.min.js"></script>
     <script src="https://source.zoom.us/2.13.0/zoom-meeting-embedded-2.13.0.min.js"></script>
 </head>
-<body data-spy="scroll" data-target=".navbar" data-offset="40" id="home">
 
+<body data-spy="scroll" data-target=".navbar" data-offset="40" id="home">
 <!-- page Navigation -->
 <nav class="navbar custom-navbar navbar-expand-md navbar-light fixed-top" data-spy="affix" data-offset-top="10">
     <div class="container">
@@ -36,11 +38,11 @@
                     <a class="nav-link" href="#join">Join Meeting</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#about">Our Founders</a>
+                    <a class="nav-link" href="#about">Founders</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#archives">Archives</a>
-                </li>
+                <!--                <li class="nav-item">-->
+                <!--                    <a class="nav-link" href="#archives">Archives</a>-->
+                <!--                </li>-->
                 <li class="nav-item">
                     <a class="nav-link" href="#contact">Contact</a>
                 </li>
@@ -53,7 +55,6 @@
 <!-- Page Header -->
 <header class="header">
     <div class="overlay">
-        <!--        <h1 class="subtitle">S.A.L.T.</h1>-->
         <h1 class="title">SALT</h1>
     </div>
     <div class="shape">
@@ -70,78 +71,24 @@
 <!-- Join Section -->
 <section id="join" class="section pt-0">
     <div class="container">
-        <h6 class="section-title text-center">Join Meeting</h6>
+        <h6 class="section-title text-center" id="startZoomButton">Join Meeting</h6>
         <h6 class="section-subtitle text-center mb-5 pb-3">Live every Thursday at 7:00 pm CT</h6>
 
-        <button onclick="joinMeeting()">Join Meeting</button>
-        <div id="meetingSDKElement"></div>
+        <iframe id="zoomFrame" width="1200" height="600" allow="camera; microphone" style="display: none;"></iframe>
 
         <script>
-            async function joinMeeting() {
-                const meetingNumber = "123456789";
-                const role = 0;
-
-                try {
-                    const response = await fetch("http://localhost:8080/api/zoom/generate-signature", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({ meetingNumber, role })
-                    });
-
-                    const data = await response.json();
-                    const { signature, apiKey } = data;
-
-                    client.join({
-                        apiKey: apiKey,
-                        signature: signature,
-                        meetingNumber: meetingNumber,
-                        userName: "Guest User",
-                        password: ""
-                    });
-                } catch (error) {
-                    console.error("Error:", error);
-                }
+            function loadZoomMeeting() {
+                var zoomFrame = document.getElementById("zoomFrame");
+                zoomFrame.src = "https://us05web.zoom.us/j/24444298327?pwd=LTzfxFRy43XbjmaMj6rZA6n8SB56YnN.1&cnm=88922123225";
+                zoomFrame.style.display = "block"; // Show the iframe
             }
-        </script>
 
-        <div class="row">
-            <div class="col-md-4">
-                <div class="card mb-4 mb-md-0">
-                    <div class="card-body">
-                        <small class="text-primary font-weight-bold">Mission</small>
-                        <h5 class="card-title mt-3"> Beatae quo</h5>
-                        <p class="mb-0">Lorem ipsum dolor sit amet, cquasi cupiditate voluptate debitis saepe
-                            dolorem totam dolor repudiandae quo nihil, repellendus nesciunt ab fuga quae, minima
-                            reprehenderit sequi fugit.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card mb-4 mb-md-0">
-                    <div class="card-body">
-                        <small class="text-primary font-weight-bold">Vision</small>
-                        <h5 class="card-title mt-3">Delectus Suscipit</h5>
-                        <p class="mb-0">Lorem ipsum dolor sit amet, cquasi cupiditate voluptate debitis saepe
-                            dolorem totam dolor repudiandae quo nihil, repellendus nesciunt ab fuga quae, minima
-                            reprehenderit sequi fugit.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card mb-4 mb-md-0">
-                    <div class="card-body">
-                        <small class="text-primary font-weight-bold">03</small>
-                        <h5 class="card-title mt-3">Itaque harum</h5>
-                        <p class="mb-0">Lorem ipsum dolor sit amet, cquasi cupiditate voluptate debitis saepe
-                            dolorem totam dolor repudiandae quo nihil, repellendus nesciunt ab fuga quae, minima
-                            reprehenderit sequi fugit.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                <h6 class="section-title text-center pt-5">1 Body, 1 Mission, 1 Movement</h6>
-            </div>
-        </div>
+            // Remove the window.onload call
+            // window.onload = loadZoomMeeting;
+
+            // Add event listener to the button
+            document.getElementById("startZoomButton").addEventListener("click", loadZoomMeeting);
+        </script>
     </div>
 </section>
 <!-- End Join Section -->
@@ -151,19 +98,12 @@
     <div class="container">
         <div class="row justify-content-between">
             <div class="col-md-6 pr-md-5 mb-4 mb-md-0">
-                <h6 class="section-title mb-0">Our Founders</h6>
-                <!--                <h6 class="section-subtitle mb-4">Architecto provident deserunt</h6>-->
-                <p>Antwine and Bella Brunson</p>
-                <img src="assets/images/abb04.jpg" alt="" class="w-100 mt-3 shadow-sm">
+                <h6 class="section-title mb-0">Founders</h6>
+                <h5>Antwine and Bella Brunson</h5>
+                <img src="assets/images/abb02.png" alt="" class="w-100 mt-3">
             </div>
             <div class="col-md-6 pl-md-5">
                 <div class="row">
-                    <div class="col-6">
-                        <img src="assets/images/growth.jpg" alt="" class="w-100 shadow-sm">
-                    </div>
-                    <div class="col-6">
-                        <img src="assets/images/discipleship.jpg" alt="" class="w-100 shadow-sm">
-                    </div>
                     <div class="col-12 mt-4">
                         <h6 class="section-title mb-0">Mission</h6>
                         <p>At Salvation and Light Temple, our mission is to illuminate lives with the light of Christ,
@@ -187,45 +127,45 @@
 <!-- End OF About Section -->
 
 <!-- Archives Section -->
-<section class="section" id="archives">
-    <div class="container">
-        <h6 class="section-title mb-0 text-center">Archives</h6>
-        <h6 class="section-subtitle mb-5 text-center">Architecto provident deserunt eveniet libero</h6>
+<!--<section class="section" id="archives">-->
+<!--    <div class="container">-->
+<!--        <h6 class="section-title mb-0 text-center">Archives</h6>-->
+<!--        <h6 class="section-subtitle mb-5 text-center">Architecto provident deserunt eveniet libero</h6>-->
 
-        <div class="row">
-            <div class="col-md-4">
-                <div class="card border-0 mb-4">
-                    <img src="assets/images/blog-1.jpg" alt="" class="card-img-top w-100">
-                    <div class="card-body">
-                        <h6 class="card-title">Pariatur Omnis Harum quae sint.</h6>
-                        <p>Fuga quae ratione inventore Perferendis porro.</p>
-                        <a href="javascript:void(0)" class="small text-muted">Go To The Article</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card border-0 mb-4">
-                    <img src="assets/images/blog-2.jpg" alt="" class="card-img-top w-100">
-                    <div class="card-body">
-                        <h6 class="card-title"> Harum Quae Porro</h5>
-                            <p>Fuga quae ratione inventore Perferendis porro.</p>
-                            <a href="javascript:void(0)" class="small text-muted">Go To The Article</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card border-0 mb-4">
-                    <img src="assets/images/blog-3.jpg" alt="" class="card-img-top w-100">
-                    <div class="card-body">
-                        <h6 class="card-title">Qui optio neque alias</h6>
-                        <p>Fuga quae ratione inventore Perferendis porro.</p>
-                        <a href="javascript:void(0)" class="small text-muted">Go To The Article</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+<!--        <div class="row">-->
+<!--            <div class="col-md-4">-->
+<!--                <div class="card border-0 mb-4">-->
+<!--                    <img src="assets/images/blog-1.jpg" alt="" class="card-img-top w-100">-->
+<!--                    <div class="card-body">-->
+<!--                        <h6 class="card-title">Pariatur Omnis Harum quae sint.</h6>-->
+<!--                        <p>Fuga quae ratione inventore Perferendis porro.</p>-->
+<!--                        <a href="javascript:void(0)" class="small text-muted">Go To The Article</a>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="col-md-4">-->
+<!--                <div class="card border-0 mb-4">-->
+<!--                    <img src="assets/images/blog-2.jpg" alt="" class="card-img-top w-100">-->
+<!--                    <div class="card-body">-->
+<!--                        <h6 class="card-title"> Harum Quae Porro</h5>-->
+<!--                            <p>Fuga quae ratione inventore Perferendis porro.</p>-->
+<!--                            <a href="javascript:void(0)" class="small text-muted">Go To The Article</a>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="col-md-4">-->
+<!--                <div class="card border-0 mb-4">-->
+<!--                    <img src="assets/images/blog-3.jpg" alt="" class="card-img-top w-100">-->
+<!--                    <div class="card-body">-->
+<!--                        <h6 class="card-title">Qui optio neque alias</h6>-->
+<!--                        <p>Fuga quae ratione inventore Perferendis porro.</p>-->
+<!--                        <a href="javascript:void(0)" class="small text-muted">Go To The Article</a>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</section>-->
 <!-- End of Archives Section -->
 
 <!-- Contact Section -->
@@ -245,14 +185,6 @@
             <div class="col-md-7">
             </div>
         </div>
-        <!-- Page Footer -->
-        <!--        <footer class="mt-5 py-4 border-top border-secondary">-->
-        <!--            <p class="mb-0 small">&copy;-->
-        <!--                <script>document.write(new Date().getFullYear())</script>-->
-        <!--                , LeadMark Created By <a href="https://www.devcrud.com" target="_blank">DevCrud.</a> All rights reserved-->
-        <!--            </p>-->
-        <!--        </footer>-->
-        <!-- End of Page Footer -->
     </div>
 </section>
 

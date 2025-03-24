@@ -12590,3 +12590,13 @@ textarea.form-control {
     display: none; /* Hide the iframe initially */
     border: none;
 }
+
+.logo {
+    width: 100px;
+    height: auto;
+}
+
+.youtube {
+    width: 200px;
+    height: auto;
+}
